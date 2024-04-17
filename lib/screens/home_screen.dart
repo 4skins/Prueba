@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:nuvas/screens/screens.dart';
+import 'home_screen2.dart';
+import 'home_screen3.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-  
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0; // Current index for BottomNavigationBar
+
+
+  void _onItemTapped(int index) {
+    if (index == 1) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen2()));
+    }
+    else if(index == 2){
+      Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomeScreen3()));
+    }
+    else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+  @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(246, 0, 0, 0),
-        title: Image.asset('assets/logo.jpeg', width: 100, height: 100),
+        title: Image.asset('assets/logo.png', width: 100, height: 100),
       ),
-      body: Center(
+
+      body: 
+        Center(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
             children: [
+              Image.asset('assets/pc.jpeg'),
+              const SizedBox(height: 20),
               const Text(
                 'Descripción',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -39,24 +69,23 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.0),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Inicio',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'Quienes Somos',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Servicios',
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Quienes Somos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Servicios',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

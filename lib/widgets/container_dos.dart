@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
 
 class ContainerDos extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemTapped;
+
   const ContainerDos({
-    super.key,
-  });
+    Key? key,
+    required this.selectedIndex,
+    required this.onItemTapped,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-      child: const Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Ingeniería Civil en Computación e Informática',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Adscrita a la gratuidad',
-                style: TextStyle(color: Colors.black38),
-              ),
-            ],
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
           ),
-          Expanded(child: Text('')),
-          Icon(
-            Icons.mail,
-            color: Color.fromRGBO(109, 124, 241, 0.965),
-          )
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Quienes Somos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Servicios',
+          ),
         ],
+        currentIndex: selectedIndex,
+        onTap: onItemTapped,
       ),
     );
   }
